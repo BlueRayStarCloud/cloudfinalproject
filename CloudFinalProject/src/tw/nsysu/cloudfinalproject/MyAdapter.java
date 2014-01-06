@@ -18,17 +18,18 @@ public class MyAdapter extends BaseAdapter{
 	private String[] RoadSituation = {"柏油","濕潤","有坑洞"};
 	private String[] TypeofAccident = {"人和汽車","機車和汽車","汽車和汽車"};
 	private String[] LocationofAccident = {"千光路","中山大學大門口","永和豆漿路口","建國路口","五福路口"};
-	private long time;
+	private String time;
 	
 	private String[] light;
 	private String[] location;
 	
 	private LayoutInflater myInflater;
 	
-	public MyAdapter(Context ctx,String[] light,String[] location) {
+	public MyAdapter(Context ctx,String[] light,String[] location, String time) {
 		myInflater = LayoutInflater.from(ctx);
 		this.light=light;
 		this.location=location;
+		this.time=time;
 		// TODO Auto-generated constructor stub
 	}
 
@@ -69,8 +70,8 @@ public class MyAdapter extends BaseAdapter{
 	 
 	
 	
-	 viewtag.probability.setText(light[position]);
-	 viewtag.location.setText(location[position]);
+	 viewtag.probability.setText("時間："+time);
+	 viewtag.location.setText("地點："+location[position]);
 		
 		
 	return contentView;
