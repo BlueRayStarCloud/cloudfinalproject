@@ -2,6 +2,7 @@ package tw.nsysu.cloudfinalproject;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
@@ -30,7 +31,7 @@ public class ListViewDBHelper extends SQLiteOpenHelper{
 			FEILD_LOCATIONofACCIDENT+" INTEGER,"+
 			FEILD_TIME+" STRING"+
 			")";
-	private SQLiteOpenHelper dbHelper;
+	private SQLiteDatabase db;
    
 	public ListViewDBHelper(Context context) {
 		super(context,DATABASE_NAME,null,DATABASE_VERSION);
@@ -41,7 +42,7 @@ public class ListViewDBHelper extends SQLiteOpenHelper{
 	public void onCreate(SQLiteDatabase db) {
 		// TODO Auto-generated method stub
 		
-		db.execSQL(SQL);
+	    db.execSQL(SQL);
 	}
 
 	@Override
@@ -54,7 +55,7 @@ public class ListViewDBHelper extends SQLiteOpenHelper{
 	
 	public void insert(int climate,int light,int gender,double speed,int roadsituation,int typeofaccident,int locationofaccident,String time)
     {
-        SQLiteDatabase db=this.getWritableDatabase();
+        db=this.getWritableDatabase();
         ContentValues cv=new ContentValues(); 
         cv.put(FEILD_CLIMATE,climate);
         cv.put(FEILD_LIGHT,light);
@@ -66,6 +67,14 @@ public class ListViewDBHelper extends SQLiteOpenHelper{
         cv.put(FEILD_TIME,time);
         db.insert(TABLE_NAME, null, cv);
      
+    }
+	
+	public Cursor loadAll() {
+		 
+		 Cursor cursor = db.query(TABLE_NAME, new String[] {FEILD_TIME}, null,
+		 null, null, null, null);
+		 
+		 return cursor;
     }
 	
 	/*public void insert(int locationofaccident,String time)

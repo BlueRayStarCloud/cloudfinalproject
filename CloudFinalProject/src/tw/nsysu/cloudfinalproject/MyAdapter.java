@@ -1,7 +1,9 @@
 package tw.nsysu.cloudfinalproject;
 
+import java.util.ArrayList;
+
 import android.content.Context;
-import android.support.v4.app.ListFragment;
+import android.database.Cursor;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,36 +21,40 @@ public class MyAdapter extends BaseAdapter{
 	private String[] TypeofAccident = {"人和汽車","機車和汽車","汽車和汽車"};
 	private String[] LocationofAccident = {"千光路","中山大學大門口","永和豆漿路口","建國路口","五福路口"};
 	private String time;
+	private ArrayList<String> arrayList_time;
 	
 	private String[] light;
 	private String[] location;
 	
 	private LayoutInflater myInflater;
 	
-	public MyAdapter(Context ctx,String[] light,String[] location, String time) {
+	public MyAdapter(Context ctx,String[] light,String[] location, String time,ArrayList<String> arrayList_time) {
+		
 		myInflater = LayoutInflater.from(ctx);
 		this.light=light;
 		this.location=location;
 		this.time=time;
+		this.arrayList_time=arrayList_time;
+		System.out.println("個數為："+arrayList_time.size());
 		// TODO Auto-generated constructor stub
 	}
 
 	@Override
 	public int getCount() {
 		// TODO Auto-generated method stub
-		return light.length;//先隨便指定一個list
+		return arrayList_time.size();
 	}
 
 	@Override
 	public Object getItem(int position) {
 		// TODO Auto-generated method stub
-		return light[position];//先隨便指定一個list
+		return arrayList_time.get(position);
 	}
 
 	@Override
 	public long getItemId(int position) {
 		// TODO Auto-generated method stub
-		return position;
+		return Long.valueOf(arrayList_time.get(position));
 	}
 
 	@Override
@@ -68,10 +74,9 @@ public class MyAdapter extends BaseAdapter{
 	 else
 		 viewtag = (ViewTag)contentView.getTag();
 	 
-	
-	
-	 viewtag.probability.setText("時間："+time);
-	 viewtag.location.setText("地點："+location[position]);
+	//System.out.println(""+arrayList_time.get(0));
+	viewtag.probability.setText("時間："+arrayList_time.get(position));
+	viewtag.location.setText("地點："+location[0]);
 		
 		
 	return contentView;
